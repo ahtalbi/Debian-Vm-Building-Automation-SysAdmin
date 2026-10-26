@@ -28,3 +28,12 @@ This project is about 3 important ideas: Infrastructure as Code (IaC), Idempoten
 I started with an expert installation of Debian. For each question I encountered during the installation, I researched the corresponding preseed directive and how to use it to automate that step. I then added the necessary directives to `preseed.cfg` until the installation process could run unattended, including the LVM partitioning.
 
 And what helped me to configure it [Deiban Documentation about automating installation](https://www.debian.org/releases/stable/amd64/apb.en.html)
+
+And to install Packer to use this configuration file
+```
+sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
+wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt-get update && sudo apt-get install packer
+```
+With this commmand
