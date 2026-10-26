@@ -22,3 +22,7 @@ This project is about 3 important ideas: Infrastructure as Code (IaC), Idempoten
 
 5. Vagrantfile            Ties everything together: which box, which scripts, vagrant up
 ```
+
+### 1. Configuring `preseed.cfg`
+
+I started with an expert installation of Debian. For each question I encountered during the installation, I researched the corresponding preseed directive and how to use it to automate that step. I then added the necessary directives to `preseed.cfg` until the installation process could run unattended, including the LVM partitioning.
