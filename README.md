@@ -36,4 +36,47 @@ wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/
 echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 sudo apt-get update && sudo apt-get install packer
 ```
-With this commmand
+
+some commands you can use to work with vitrual box envirment
+
+```
+With this commmand we can show all the vms we have in our machine 
+- VBoxManage list vms
+With this command we can delet some vm 
+- VBoxManage unregistervm <UUID>
+With this command we can show all the VMs we have on our machine
+- VBoxManage list vms
+With this command we can show only the VMs that are running now
+- VBoxManage list runningvms
+With this command we can delete a VM (use the name, or the UUID for an `<inaccessible>` one)
+- VBoxManage unregistervm <name or UUID> --delete
+```
+
+And for us we need to have the iso to configure it right so to have it good we need the hash of the file
+```
+sha256sum ~/Downloads/debian-13.7.0-amd64-netinst.iso
+```
+
+and to start you need to configure the packer which is gonna provide the installation of the vm with the config we have setted up
+with those commands
+```
+packer init debian.pkr.hcl
+packer validate debian.pkr.hcl
+packer build -force debian.pkr.hcl
+```
+**init** downloads the VirtualBox and Vagrant plugins that the first block asks for.  
+**validate** checks the syntax, and should print “The configuration is valid.”  
+**build** creates the VM, types your boot_command into the installer, and serves preseed.cfg over HTTP. Packer waits for SSH on 10.0.2.8, shuts the VM down, and packages debian-custom.box.  
+
+And some times if there is a problem in the installation it may be from a service running from the first virtual box procces which is still running and it can't run both  
+so we need to make sure that is stopped 
+```
+pkill VBoxSVC; pkill VBoxXPCOMIPCD
+```
+or restart it
+```
+sudo systemctl restart vboxdrv
+sudo systemctl daemon-reload
+```
+And better run with normal terminal so you activate the virtual box directly no sandbox of vsCode  
+
