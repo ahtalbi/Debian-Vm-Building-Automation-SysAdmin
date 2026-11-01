@@ -1,5 +1,6 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "debian-custom"
+  config.vm.box_url = "./debian-custom.box"
   config.vm.box_check_update = false
   config.vm.hostname = "ahmed"
 

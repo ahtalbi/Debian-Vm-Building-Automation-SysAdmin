@@ -34,6 +34,5 @@ systemctl daemon-reload
 systemctl start myservice
 systemctl enable myservice
 
-# 4. Storage: make var 5G, then grow its file system
-lvextend -L 5G /dev/vg/var
-resize2fs /dev/vg/var
+# 4. Storage: make var 5G, then grow its file system (idempotent)
+lvextend -r -L 5G /dev/vg/var 2>/dev/null || true
