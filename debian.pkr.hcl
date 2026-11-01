@@ -38,7 +38,7 @@ source "virtualbox-iso" "debian" {
     "netcfg/get_gateway=10.0.2.2 ",
     "netcfg/get_nameservers=10.0.2.3 ",
     "netcfg/confirm_static=true ",
-    "netcfg/get_hostname=ahmed netcfg/get_domain=local ",
+    "hostname=ahmed netcfg/hostname=ahmed netcfg/get_hostname=ahmed netcfg/get_domain=local ",
     "--- <enter>"
   ]
 
